@@ -1,4 +1,4 @@
-# expertime
+# Expertime technical test
 
 ## Project setup
 ```
