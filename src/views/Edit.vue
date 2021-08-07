@@ -80,12 +80,12 @@
         >
           Decision deadline
         </label>
-        <input 
-          type="date"
-          class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  
-          id="date"
+        <datetime
+          format="DD/MM/YYYY"
+          class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           v-model="date"
         >
+        </datetime>
       </div>
       <div class="text-right my-2">
         <button
@@ -103,11 +103,13 @@
 import moment from 'moment'
 import Navbar from '../components/Navbar.vue'
 import Breadcrumb from '../components/Breadcrumb.vue'
+import datetime from 'vuejs-datetimepicker';
 export default {
   name: 'Edit',
   components: {
     Navbar,
-    Breadcrumb
+    Breadcrumb,
+    datetime
   },
   data() {
     return {
@@ -137,7 +139,7 @@ export default {
   },
   methods: {
     save() {
-      this.payload.decisionDeadline = moment.utc(this.date).format()
+      this.payload.decisionDeadline = moment.utc(moment(this.date).format('DD-MM-YYYY')).format()
       this.payload.media = this.medias.filter((v) => this.checkedMedias.includes(v.mediaId))
       this.$store.dispatch('updateValue', this.payload);
       this.$router.push({ name: 'home' });
@@ -145,7 +147,7 @@ export default {
   },
   mounted() {
     this.title = this.payload.campaignName
-    this.date = moment(this.payload.decisionDeadline).format('YYYY-MM-DD')
+    this.date = this.payload.decisionDeadline !== null ? moment(this.payload.decisionDeadline).format('DD/MM/YYYY') : moment().format('DD/MM/YYYY')
     this.payload.media.forEach(elt => {
       this.checkedMedias.push(elt.mediaId)
     });

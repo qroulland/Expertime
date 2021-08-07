@@ -1,0 +1,10 @@
+.year-month-wrapper,
+.month-setter .nav-r,
+.month-setter .nav-l,
+.activePort {
+    background-color: rgba(59, 130, 246)!important;
+}
+
+.headers .days, .okButton {
+    color: rgba(59, 130, 246)!important;
+}

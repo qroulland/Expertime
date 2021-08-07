@@ -83,7 +83,7 @@
             </td>
             <td class="py-3 px-6">{{ row.advice ? 'Advice' : 'Request' }}</td>
             <td class="py-3 px-6">{{ row.brand.name }}</td>
-            <td class="py-3 px-6">{{ row.decisionDeadline ? convertDate(row.decisionDeadline) : "Not submitted" }}</td>
+            <td class="py-3 px-6">{{ row.decisionDeadline ? convertDate(row.decisionDeadline) : "No deadline" }}</td>
             <td class="py-3 px-6 align-middle text-center flex justify-center">
               <router-link
                 class="bg-blue-500 rounded-full p-2 m-2 hover:bg-blue-700"
