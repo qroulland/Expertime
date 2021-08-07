@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import brands from '../assets/data/brands.json'
 import payloads from '../assets/data/payload-rmp.json'
+import medias from '../assets/data/medias.json'
 
 
 Vue.use(Vuex)
@@ -10,7 +11,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     brands,
-    payloads
+    payloads,
+    medias
   },
   mutations: {
     UPDATE_VALUE(state, object) {

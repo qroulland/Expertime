@@ -46,6 +46,35 @@
       </div>
       <div class="mb-4">
         <label 
+          for="medias"
+          class="block text-gray-700 text-sm font-bold mb-4"
+        >
+          Media
+        </label>
+        <div class="grid grid-cols-4">
+          <div
+            v-for="elt in medias"
+            :key="elt.mediaId"
+            class="mb-4 flex items-center"
+          >
+            <input 
+              type="checkbox"
+              class="form-checkbox"  
+              :id="elt.value"
+              v-model="checkedMedias"
+              :value="elt.mediaId"
+            >
+            <label 
+              :for="elt.value"
+              class="block text-gray-500 text-sm ml-2"
+            >
+              {{elt.value}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label 
           for="date"
           class="block text-gray-700 text-sm font-bold mb-2"
         >
@@ -56,7 +85,6 @@
           class="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  
           id="date"
           v-model="date"
-          @change="ChangeDate()"
         >
       </div>
       <div class="text-right my-2">
@@ -86,6 +114,8 @@ export default {
       title: '',
       date: '',
       brands: this.$store.state.brands,
+      medias: this.$store.state.medias,
+      checkedMedias: [],
       breadcrumb: [
         {
           label: 'Home',
@@ -106,10 +136,9 @@ export default {
     }
   },
   methods: {
-    ChangeDate() {
-      this.payload.decisionDeadline = moment.utc(this.date).format()
-    },
     save() {
+      this.payload.decisionDeadline = moment.utc(this.date).format()
+      this.payload.media = this.medias.filter((v) => this.checkedMedias.includes(v.mediaId))
       this.$store.dispatch('updateValue', this.payload);
       this.$router.push({ name: 'home' });
     }
@@ -117,6 +146,9 @@ export default {
   mounted() {
     this.title = this.payload.campaignName
     this.date = moment(this.payload.decisionDeadline).format('YYYY-MM-DD')
+    this.payload.media.forEach(elt => {
+      this.checkedMedias.push(elt.mediaId)
+    });
   }
 }
 </script>
